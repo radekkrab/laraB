@@ -11,6 +11,10 @@
 Index Page
 <div>
     <hr>
+    <div>
+        <div><a href="{{ route('worker.create') }}">Добавить</a></div>
+    </div>
+    <hr>
     @foreach($workers as $worker)
         <div>
             <div>Name: {{ $worker->name }}</div>
@@ -20,6 +24,14 @@ Index Page
             <div>Description: {{ $worker->description }}</div>
             <div>Is married: {{ $worker->is_married }}</div>
             <div><a href="{{ route('worker.show', $worker->id) }}">Просмотреть</a></div>
+            <div><a href="{{ route('worker.edit', $worker->id) }}">Редактировать</a></div>
+            <div>
+                <form action="{{ route('worker.delete', $worker->id) }}" method="post">
+                    @csrf
+                    @method('Delete')
+                    <input type="submit" value="Удалить">
+                </form>
+            </div>
         </div>
         <hr>
     @endforeach

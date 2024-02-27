@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Worker\StoreRequest;
+use App\Http\Requests\Worker\UpdateRequest;
 use App\Models\Worker;
 use Illuminate\Http\Request;
+use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
 class WorkerController extends Controller
 {
@@ -21,39 +24,39 @@ class WorkerController extends Controller
 
     public function create()
     {
-        $worker = [
-            'name' => 'Mark',
-            'surname' => 'MarIvanov',
-            'email' => 'miv@mail.ru',
-            'age' => '22',
-            'description' => 'i am Mark',
-            'is_married' => false,
-
-        ];
-
-        Worker::create($worker);
-
-        return 'Ivan was created';
+        return view('worker.create');
     }
 
-    public function update()
+    public function store(StoreRequest $request)
     {
-        $workers = Worker::find(2);
+        $data = $request->validated();
 
-        $workers->update([
-            'name' => 'Karl',
-            'surname' => 'Sidorov',
-        ]);
+        $data['is_married'] = isset($data['is_married']);
 
-        return 'Was updated';
+        Worker::create($data);
+
+        return redirect()->route('worker.index');
     }
 
-    public function delete()
+    public function edit(Worker $worker)
     {
-        $workers = Worker::find(2);
+        return view('worker.edit', compact('worker'));
+    }
 
-        $workers->delete();
+    public function update (UpdateRequest $request, Worker $worker)
+    {
+        $data = $request->validated();
+        $data['is_married'] = isset($data['is_married']);
 
-        return 'Was deleted';
+        $worker->update($data);
+
+        return redirect()->route('worker.show', $worker->id);
+    }
+
+    public function delete(Worker $worker)
+    {
+        $worker->delete();
+
+        return redirect()->route('worker.index');
     }
 }
