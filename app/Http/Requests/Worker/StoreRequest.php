@@ -31,4 +31,11 @@ class StoreRequest extends FormRequest
 
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Поле имя должно быть заполнено',
+            'name.string' => 'Поле имя должно быть строкой',
+        ];
+    }
 }
