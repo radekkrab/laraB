@@ -4,7 +4,7 @@ namespace App\Http\Requests\Worker;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'email' => 'required|email',
-            'age' => 'nullable|integer',
+            'name' => 'nullable|string',
+            'surname' => 'nullable|string',
+            'email' => 'nullable|email',
+            'from' => 'nullable|integer',
+            'to' => 'nullable|integer',
             'description' => 'nullable|string',
             'is_married' => 'nullable|string',
 
@@ -34,8 +35,8 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Поле имя должно быть заполнено',
-            'name.string' => 'Поле имя должно быть строкой',
+            'from.integer' => 'Это поле должно быть числом',
+            'to.integer' => 'Это поле должно быть числом',
         ];
     }
 }

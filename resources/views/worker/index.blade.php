@@ -15,6 +15,23 @@ Index Page
         <div><a href="{{ route('worker.create') }}">Добавить</a></div>
     </div>
     <hr>
+    <div>
+        <form action="{{ route('worker.index') }}">
+            <input type="text" name="name" placeholder="name" value="{{ request()->get('name')  }}">
+            <input type="text" name="surname" placeholder="surname">
+            <input type="text" name="email" placeholder="email">
+            <input type="text" name="email" placeholder="email">
+            <input type="number" name="from" placeholder="from">
+            <input type="number" name="to" placeholder="to">
+            <input type="text" name="description" placeholder="description">
+            <input id="isMarried" type="checkbox" name="is_married"
+                {{ request()->get('is_married') == 'on' ? 'checked' : '' }}>
+            <lavel for="isMarried">Is married</lavel>
+            <input type="submit" value="Отправить">
+            <a href="{{ route('worker.index') }}">Сбросить</a>
+        </form>
+    </div>
+    <hr>
     @foreach($workers as $worker)
         <div>
             <div>Name: {{ $worker->name }}</div>
@@ -35,6 +52,14 @@ Index Page
         </div>
         <hr>
     @endforeach
+    <div class="my-nav">
+        {{ $workers->links() }}
+    </div>
 </div>
+<style>
+    .my-nav svg {
+        width: 20px;
+    }
+</style>
 </body>
 </html>
