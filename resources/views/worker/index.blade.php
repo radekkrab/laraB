@@ -1,14 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-Index Page
+@extends('layout.main')
+
+@section('content')
+
 <div>
     <hr>
     <div>
@@ -18,12 +11,11 @@ Index Page
     <div>
         <form action="{{ route('worker.index') }}">
             <input type="text" name="name" placeholder="name" value="{{ request()->get('name')  }}">
-            <input type="text" name="surname" placeholder="surname">
-            <input type="text" name="email" placeholder="email">
-            <input type="text" name="email" placeholder="email">
-            <input type="number" name="from" placeholder="from">
-            <input type="number" name="to" placeholder="to">
-            <input type="text" name="description" placeholder="description">
+            <input type="text" name="surname" placeholder="surname" value="{{ request()->get('surname')  }}">
+            <input type="text" name="email" placeholder="email" value="{{ request()->get('email')  }}">
+            <input type="number" name="from" placeholder="from" value="{{ request()->get('from')  }}">
+            <input type="number" name="to" placeholder="to" value="{{ request()->get('to')  }}">
+            <input type="text" name="description" placeholder="description" value="{{ request()->get('description')  }}">
             <input id="isMarried" type="checkbox" name="is_married"
                 {{ request()->get('is_married') == 'on' ? 'checked' : '' }}>
             <lavel for="isMarried">Is married</lavel>
@@ -53,13 +45,9 @@ Index Page
         <hr>
     @endforeach
     <div class="my-nav">
-        {{ $workers->links() }}
+        {{ $workers->withQueryString()->links() }}
     </div>
 </div>
-<style>
-    .my-nav svg {
-        width: 20px;
-    }
-</style>
-</body>
-</html>
+
+@endsection
+
