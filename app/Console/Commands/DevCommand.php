@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Profile;
+use App\Models\Worker;
 use Illuminate\Console\Command;
 
 class DevCommand extends Command
@@ -11,7 +13,7 @@ class DevCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:dev-command';
+    protected $signature = 'develop';
 
     /**
      * The console command description.
@@ -25,6 +27,41 @@ class DevCommand extends Command
      */
     public function handle()
     {
-        //
+
+//        $this->prepareData();
+
+        $worker = Worker::find(3);
+
+        $profile = Profile::find(1);
+
+        dd($worker->profile->toArray());
+
+        return 0;
+    }
+
+    private function prepareData()
+    {
+        $workerData = [
+            'name' => 'Ivan',
+            'surname' => 'Sidorov',
+            'email' => 'ivasid@mail.ru',
+            'age' => '32',
+            'description' => 'jhd djfij jdkjf',
+            'is_married' => 'true',
+        ];
+
+        $worker = Worker::create($workerData);
+
+        $profileData = [
+            'worker_id' => $worker->id,
+            'city' => 'Yeakaterinburg',
+            'skill' => 'Coder',
+            'experience' => 3,
+            'finished_study_ate' => '2020-07-01',
+        ];
+
+        $profile = Profile::create($profileData);
+
+        dd($profile->id);
     }
 }
