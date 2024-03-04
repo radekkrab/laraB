@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Department;
 use App\Models\Position;
 use App\Models\Profile;
 use App\Models\Project;
@@ -30,8 +31,20 @@ class DevCommand extends Command
      */
     public function handle()
     {
-          $worker = Worker::find(1);
-          dd($worker->projects->toArray());
+            $department = Department::find(1);
+//            $position = Position::where('department_id', $department->id)->where('title', 'Boss')->first();
+//
+//            $worker = Worker::where('position_id', $position->id)->first();
+//            dd($worker->toArray());
+
+            dd($department->boss);
+
+//          $worker = Worker::find(2);
+//          $project = Project::find(1);
+//
+//          $worker->projects()->toggle($project->id);
+//
+//          dd($worker->toArray());
 
 //        $project = Project::find(1);
 //
@@ -57,16 +70,27 @@ class DevCommand extends Command
 
     private function prepareData()
     {
+        $department1 = Department::create([
+            'title' => 'IT',
+        ]);
+
+        $department2 = Department::create([
+            'title' => 'Analytics',
+        ]);
+
         $position1 = Position::create([
             'title' => 'Developer',
+            'department_id' => $department1->id
         ]);
 
         $position2 = Position::create([
             'title' => 'Manager',
+            'department_id' => $department1->id
         ]);
 
         $position3 = Position::create([
             'title' => 'Designer',
+            'department_id' => $department1->id
         ]);
 
         $workerData1 = [
