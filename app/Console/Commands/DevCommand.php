@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Avatar;
+use App\Models\Client;
 use App\Models\Department;
 use App\Models\Position;
 use App\Models\Profile;
@@ -31,19 +33,48 @@ class DevCommand extends Command
     public function handle()
     {
 
-
+//
 //        $this->prepareData();
 //        $this->prepareManyToMany();
 
-        $worker = Worker::find(1);
+        $position = Position::first();
+        dd($position->queryWorker->toArray());
+////
+//        $worker = Worker::find(1);
+//        $client = Client::find(2);
+//
+//        $worker->tags()->attach([1, 3]);
+//        $client->tags()->attach([2, 3]);
 
-        dd($worker->projects->toArray());
+//        dd($worker->reviews->toArray());
+
+//        $client->avatar()->create([
+//            'path' => 'somer poth',
+//        ]);
+//
+//        $worker->avatar()->create([
+//            'path' => 'some path',
+//        ]);
+
+//        $avatar = Avatar::find(2);
+//        dd($avatar->avatarable->toArray());
+//
+//        dd($worker->projects->toArray());
 
         return 0;
     }
 
     private function prepareData()
     {
+        Client::create([
+            'name' => 'Bob'
+        ]);
+        Client::create([
+            'name' => 'John'
+        ]);
+        Client::create([
+            'name' => 'Elena'
+        ]);
         $department1 = Department::create([
             'title' => 'IT',
         ]);

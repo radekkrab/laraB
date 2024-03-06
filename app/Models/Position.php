@@ -21,4 +21,8 @@ class Position extends Model
     {
         return $this->belongsTo(Department::class);
     }
+    public function queryWorker()
+    {
+        return $this->hasOne(Worker::class)->ofMany('age', 'max');
+    }
 }
